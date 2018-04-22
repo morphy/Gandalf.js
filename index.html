@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gandalf.js</title>
+    <link rel="stylesheet" href="public/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+    <script>
+
+      $(function()
+      {
+        var socket = io();
+
+        $('#send').on('click', function()
+        {
+          socket.emit('chat message', $('#msg').val());
+          $('#msg').val('');
+        });
+
+        socket.on('chat message', function(msg)
+        {
+          if(msg == 'play')
+          {
+            document.getElementById('video').play();
+          }
+          else
+          {
+            document.getElementById('video').pause();
+            document.getElementById('video').src = 'public/video/' + msg + '.mp4';
+          }
+        });
+      });
+
+    </script>
+  </head>
+  <body>
+    <video id="video">
+      <source id="src" src="public/video/sax.mp4" type="video/mp4">
+    </video>
+  </body>
+</html>

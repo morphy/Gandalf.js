@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gandalf.js</title>
+    <link rel="stylesheet" href="public/css/style2.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+    <script>
+
+      $(function()
+      {
+        var socket = io();
+
+        $('#video').on('click', function()
+        {
+          socket.emit('manage message', $('#src').val());
+          $('#msg').val('');
+        });
+
+        $('#play').on('click', function()
+        {
+          socket.emit('manage message', 'play');
+        });
+      });
+
+    </script>
+  </head>
+  <body>
+    <input type="text" id="src" placeholder="Video">
+    <button id="video">Send</button>
+    <button id="play">Play</button>
+  </body>
+</html>
