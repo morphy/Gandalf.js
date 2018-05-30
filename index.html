@@ -28,7 +28,23 @@
           else
           {
             document.getElementById('video').pause();
-            document.getElementById('video').src = 'public/video/' + msg + '.mp4';
+
+            var req = new XMLHttpRequest();
+            req.open('GET', 'public/video/' + msg + '.mp4', true);
+            req.responseType = 'blob';
+
+            req.onload = function()
+            {
+              if (this.status === 200)
+              {
+                var videoBlob = this.response;
+                var vid = URL.createObjectURL(videoBlob);
+                document.getElementById('video').src = vid;
+              }
+            }
+
+            req.onerror = function() {}
+            req.send();
           }
         });
       });
